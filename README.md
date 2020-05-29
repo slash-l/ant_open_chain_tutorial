@@ -1,68 +1,88 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### 本教程需具备技术基础：
+* 较熟悉`Solidity`智能合约
+* 熟悉`Javascript`
+* 了解区块链基础知识
 
-## Available Scripts
+### 一、目标
+创建一个资产管理区块链应用
 
-In the project directory, you can run:
+### 二、开发前准备
+#### 1、帮助文档
+https://tech.antfin.com/docs/2/145456
 
-### `yarn start`
+#### 2、登录蚂蚁金服控制台-开放联盟链
+https://openchain.cloud.alipay.com
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### 3、添加链账户
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+#### 4、为链账户分配燃料
 
-### `yarn test`
+#### 5、开发时需要的参数：
+* 证书accessId
+* 证书私钥
+* 链账户名
+* 链账户地址
+* 链账户kmsKeyId
+* 链Id：a00e36c5
+* 智能合约名（稍后）
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 三、开始智能合约开发
+#### 1、蚂蚁智能合约与以太坊区别
 
-### `yarn build`
+#### 2、`UserManage.sol`合约编码
+```
+pragma solidity ^0.4.23;
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+contract UserManage {
+    struct User {
+        identity id;
+        string name;
+        uint256 age;
+    }
+    mapping (identity => User) private userMap;
+    identity[] users;
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+    function get(identity addr) public view returns(identity, string, uint256) {
+        return (userMap[addr].id, userMap[addr].name, userMap[addr].age);
+    }
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    function set(identity addr, string _name, uint256 _age) public returns(bool) {
+        users.push(addr);
+        User storage user = userMap[addr];
+        user.id = addr;
+        user.name = _name;
+        user.age = _age;
+        return true;
+    }
+}
 
-### `yarn eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### 3、`UserManage.sol`编译与合约调试
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 四、前端应用开发
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### 1、握手
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### 2、数据上链
+合约：`UserManange.sol`
 
-## Learn More
+方法：`setUser()`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### 3、链上读取数据
+合约：`UserManange.sol`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+方法：
+* getIdentities()：获取`identity`数组
+* getNames()：获取`string`数组
+* getAges()：获取`uint`数组
+* getUser()：获取复合型返回数值
+* getUsersArray()：获取带数组的复合型返回数值
 
-### Code Splitting
+#### 4、`http`调用组件解析
+* antchain.js
+* uint8array.js
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+#### 5、前端UI
 
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### 6、用户体验调试

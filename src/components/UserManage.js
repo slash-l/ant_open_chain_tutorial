@@ -21,6 +21,7 @@ class UserManage extends Component {
 
     // await this.setUser();
     // await sleep(40000);
+
     // await this.getUser();
     // await this.getIdentities();
     // await this.getNames();
@@ -36,12 +37,6 @@ class UserManage extends Component {
     ];
     const data = await call(account, contractName, "set(string,uint32)", kmsKeyId, JSON.stringify(params), "[bool]", this.state.token, 2000000);
     console.log('setUser', uint8arrayToBool(data.data));
-  }
-
-  getUser = async () => {
-    const respTypes = "[identity,string,uint32]"; //返回参数列表，必须要与合约返回一样
-    const data = await call(account, contractName, "get()", kmsKeyId, "[]", respTypes, this.state.token, 40000);
-    console.log('getUser', uint8arrayToCombinedData(data.data, respTypes));
   }
 
   getNames = async () => {
@@ -60,6 +55,12 @@ class UserManage extends Component {
     // 获取返回数组（uint）
     const data = await call(account, contractName, "getAges()", kmsKeyId, "[]", "[uint]", this.state.token, 40000);
     console.log('getAges', uint8arrayToArray(data.data, 'uint'));
+  }
+
+  getUser = async () => {
+    const respTypes = "[identity,string,uint32]"; //返回参数列表，必须要与合约返回一样
+    const data = await call(account, contractName, "get()", kmsKeyId, "[]", respTypes, this.state.token, 40000);
+    console.log('getUser', uint8arrayToCombinedData(data.data, respTypes));
   }
 
   getUsersArray = async () => {
