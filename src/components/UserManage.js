@@ -1,3 +1,9 @@
+/**
+ * Transfer from uint8array to certain data
+ * By Guqianfeng, Ver.0.10.0
+ * @2020-05-28
+ */
+
 import React, { Component } from 'react';
 import {connect, callContract, call, getTransactionReceipt, sleep } from '../utils/antchain';
 import { uint8arrayToString, uint8arrayToUint, uint8arrayToBool, uint8arrayToArray, uint8arrayToIdentity, uint8arrayToCombinedData } from '../utils/uint8array';

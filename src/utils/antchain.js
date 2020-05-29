@@ -1,4 +1,10 @@
-const NodeRSA = require('node-rsa');
+/**
+ * Transfer from uint8array to certain data
+ * By Guqianfeng, Ver.0.10.0
+ * @2020-05-28
+ */
+
+ const NodeRSA = require('node-rsa');
 require('dotenv').config();
 
 const url = "https://rest.baas.alipay.com/api/contract/chainCallForBiz";
