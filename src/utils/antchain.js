@@ -4,7 +4,7 @@
  * @2020-05-28
  */
 
- const NodeRSA = require('node-rsa');
+const NodeRSA = require('node-rsa');
 require('dotenv').config();
 
 const url = "https://rest.baas.alipay.com/api/contract/chainCallForBiz";

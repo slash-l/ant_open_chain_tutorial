@@ -107,6 +107,10 @@ contract UserManage {
 npm install 
 ```
 
+* 创建react项目
+* 配置.env
+* 运行
+
 #### 3、源码解析
 ##### 握手
 
@@ -127,7 +131,3 @@ npm install
 * antchain.js
 * uint8array.js
 
-#### 4、前端APP调试与升级
-* 创建react项目
-* 配置.env
-* 运行
