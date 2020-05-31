@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Test01 from './components/Test01';
-import Test02 from './components/Test02';
+// import Test01 from './components/Test01';
+// import Test02 from './components/Test02';
 import UserManage from './components/UserManage';
 
 function App() {

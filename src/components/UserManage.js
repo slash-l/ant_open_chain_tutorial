@@ -11,10 +11,9 @@ import { Button, Input, Table, Popconfirm, Modal } from 'antd';
 import "./UserManage.css";
 
 const account = "lunsa";          //账号
-const identity = "de09463f7d68c1c1a10dff7bc668c357822bdbf7bdc05aa39d96bad0b002b33c";
-const kmsKeyId = "G4k7092tEFJVTTBO1590130829939";
+const kmsKeyId = "G4k7092tEFJVTTBO1590130829939";//"8N1OqlG6EFJVTTBO1590916995259";
 
-const contractName = "usermanage01";  //合约名称
+const contractName = "usermange02";  //合约名称
 
 class UserManage extends Component {
   constructor(props) {
@@ -39,15 +38,15 @@ class UserManage extends Component {
       dataIndex: 'age',
       key: 'age',
     },
-    {
-      title: '上链Hash',
-      dataIndex: 'tx',
-      key: 'tx',
-      render: (text, record) => 
-        <Popconfirm title="是否查看上链记录?" onConfirm={() => this.openTxUrl(text, record)}>
-          <a>{this.formatIdentity(record.tx)}</a>
-        </Popconfirm>      
-    }
+    // {
+    //   title: '上链Hash',
+    //   dataIndex: 'tx',
+    //   key: 'tx',
+    //   render: (text, record) => 
+    //     <Popconfirm title="是否查看上链记录?" onConfirm={() => this.openTxUrl(text, record)}>
+    //       <a>{this.formatIdentity(record.tx)}</a>
+    //     </Popconfirm>      
+    // }
   ];
   
 
@@ -77,7 +76,7 @@ class UserManage extends Component {
       this.state.name,            //Name
       parseInt(this.state.age)    //Age
     ];
-    const data = await call(account, contractName, "set(string,uint32)", kmsKeyId, JSON.stringify(params), "[bool]", this.state.token, 2000000);
+    const data = await call(account, contractName, "set(string,uint32)", kmsKeyId, JSON.stringify(params), "[bool]", this.state.token, 500000);
     const re = uint8arrayToBool(data.data);
     this.setState({
       modalVisible: true,
@@ -142,7 +141,7 @@ class UserManage extends Component {
         key: i + 1,
         name: data[2][i],
         age: data[3][i],
-        tx: data[0][i]
+        // tx: data[0][i]
       }
       tableData.push(d);
     }
