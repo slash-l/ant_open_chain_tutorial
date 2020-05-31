@@ -1,0 +1,18 @@
+.write-chain {
+  margin-top: 20px;
+  width: 94%;
+  margin-left: 3%;
+}
+.read-chain {
+  width: 94%;
+  margin-left: 3%;
+}
+
+.input-line {
+  margin-bottom: 10px;
+}
+
+.title {
+  margin-top: 10px;
+  font-size: 1.1em;
+}

@@ -49,7 +49,7 @@ export const connect = async() => {
 }
 
 export const callContract = async (account, contractName, methodSignature, kmsKeyId, inputParamListStr, outParamListStr, token, gas) => {
-  const orderId = account + (new Date()).getTime();
+  const orderId = account + "_" + (new Date()).getTime() + parseInt(Math.random() * 10000);
   const res = await fetch(url, {
     method: 'POST',
     body: JSON.stringify({
@@ -72,11 +72,13 @@ export const callContract = async (account, contractName, methodSignature, kmsKe
       'Accept': 'application/json'
     })
   });
-  return await res.json();  
+  const re = await res.json();
+  re.orderId = orderId;
+  return re;
 }
 
 export const createAccount = async (account, kmsKeyId, token) => {
-  const orderId = account + (new Date()).getTime();
+  const orderId = account + "_" + (new Date()).getTime() + parseInt(Math.random() * 10000);
   const res = await fetch(url, {
     method: 'POST',
     body: JSON.stringify({
@@ -94,7 +96,9 @@ export const createAccount = async (account, kmsKeyId, token) => {
       'Accept': 'application/json'
     })
   });
-  return await res.json();
+  const re = await res.json();
+  re.orderId = orderId;
+  return re;
 }
 
 export const getBlockHeight = async (token) => {
@@ -192,6 +196,7 @@ export const call = async (account, contractName, methodSignature, kmsKeyId, inp
   const data = await getTransactionReceipt(d.data, token);
   return {
     hash: d.data,
+    orderId: d.orderId,
     data
   }
 }

@@ -166,9 +166,7 @@ export const uint8arrayToCombinedData = (data, types) => {
       re.push(uint8arrayToArray(e, "bool"));
     } else if(types[i] === "identity[]") {
       start = uint8arrayToUint(d);
-      console.log(start);
       for(j = start; j < data.length; j++) e.push(data[j]);
-      console.log(e);
       re.push(uint8arrayToArray(e, "identity"));
     }
   }
