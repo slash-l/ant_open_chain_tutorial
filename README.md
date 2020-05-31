@@ -107,9 +107,16 @@ contract UserManage {
 npm install 
 ```
 
-* 创建react项目
 * 配置.env
+```
+cp .env_example .env
+```
+编辑`.env`文件
+
 * 运行
+```
+yarn start
+```
 
 #### 3、源码解析
 ##### 握手
