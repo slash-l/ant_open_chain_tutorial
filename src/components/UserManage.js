@@ -9,11 +9,12 @@ import {connect, callContract, call, getTransactionReceipt, sleep } from '../uti
 import { uint8arrayToString, uint8arrayToUint, uint8arrayToBool, uint8arrayToArray, uint8arrayToIdentity, uint8arrayToCombinedData } from '../utils/uint8array';
 import { Button, Input, Table, Popconfirm, Modal } from 'antd';
 import "./UserManage.css";
+require('dotenv').config();
 
-const account = "lunsa";          //账号
-const kmsKeyId = "G4k7092tEFJVTTBO1590130829939";//"8N1OqlG6EFJVTTBO1590916995259";
+const account = process.env.REACT_APP_ACCOUNT;          //账号
+const kmsKeyId = process.env.REACT_APP_KMSKEYID;
 
-const contractName = "usermange02";  //合约名称
+const contractName = process.env.REACT_APP_CONTRACT_NAME;  //合约名称
 
 class UserManage extends Component {
   constructor(props) {
