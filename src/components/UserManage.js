@@ -67,9 +67,9 @@ class UserManage extends Component {
     // await this.getIdentities();
     // await this.getNames();
     // await this.getAges();
-    // await this.getUsersArray(true);
+    await this.getUsersArray(true);
     // await this.cleanArray();
-    await this.getUserByAccount("lunsa");
+    // await this.getUserByAccount("lunsa");
     // console.log(accountToIdentityObject('lunsa'));
   }
 

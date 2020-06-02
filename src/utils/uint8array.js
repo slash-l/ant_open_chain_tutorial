@@ -11,7 +11,15 @@
 const CryptoJS = require('crypto-js');
 
 export const uint8arrayToString = (data) => {
-  return getStringStart(data, 0);
+  var i = 0;
+  var d = [];
+  for(i = 32; i < 64; i++) d.push(data[i]);
+  const strLen = uint8arrayToUint(d);
+  d = [];
+  for(i = 64; i < 64 + strLen; i++) d.push(data[i]);
+  const decode = new TextDecoder("utf-8");
+  const str = decode.decode(new Uint8Array(d));
+  return str;
 }
 
 const getStringStart = (data, start) => {
@@ -91,7 +99,7 @@ export const uint8arrayToArray = (data, type) => {
     for(i = 0; i < strLen.length - 1; i++) {
       d = [];
       for(j = strLen[i]; j <= strLen[i + 1] - 1; j++) d.push(data[j]);
-      re.push(uint8arrayToString(d));
+      re.push(getStringStart(d, 0));
     }
   } else {
     // For Non-String object
