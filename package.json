@@ -7,7 +7,6 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.2.5",
-    "crypto": "^1.0.1",
     "crypto-js": "^4.0.0",
     "node-rsa": "^1.0.8",
     "react": "^16.13.1",
