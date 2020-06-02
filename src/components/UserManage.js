@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import {connect, callContract, call, getTransactionReceipt, sleep } from '../utils/antchain';
-import { uint8arrayToString, uint8arrayToUint, uint8arrayToBool, uint8arrayToArray, uint8arrayToIdentity, uint8arrayToCombinedData } from '../utils/uint8array';
+import { uint8arrayToString, uint8arrayToUint, uint8arrayToBool, uint8arrayToArray, uint8arrayToIdentity, uint8arrayToCombinedData, accountToIdentityString, accountToIdentityObject } from '../utils/uint8array';
 import { Button, Input, Table, Popconfirm, Modal } from 'antd';
 import "./UserManage.css";
 require('dotenv').config();
@@ -67,8 +67,10 @@ class UserManage extends Component {
     // await this.getIdentities();
     // await this.getNames();
     // await this.getAges();
-    await this.getUsersArray(true);
+    // await this.getUsersArray(true);
     // await this.cleanArray();
+    await this.getUserByAccount("lunsa");
+    // console.log(accountToIdentityObject('lunsa'));
   }
 
   setUser = async () => {
@@ -132,6 +134,16 @@ class UserManage extends Component {
     const dataArray = uint8arrayToCombinedData(data, respTypes);
     // console.log(dataArray);
     this.rendTable(dataArray);
+  }
+
+  getUserByAccount = async (account) => {
+    const params = [
+      accountToIdentityObject(account)
+    ];
+    const respTypes = "[identity,string,uint32]";
+    const data = await call(account, contractName, 'getById(identity)', kmsKeyId, JSON.stringify(params), respTypes, this.state.token, 100000);
+    const dataArray = uint8arrayToCombinedData(data.data, respTypes);
+    console.log(dataArray);
   }
 
   rendTable = async(data) => {
