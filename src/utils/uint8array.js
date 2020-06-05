@@ -8,8 +8,6 @@
  * Get single string data from smart contract
  * @param {*} data 
  */
-const CryptoJS = require('crypto-js');
-
 export const uint8arrayToString = (data) => {
   var i = 0;
   var d = [];
@@ -183,27 +181,3 @@ export const uint8arrayToCombinedData = (data, types) => {
   return re;
 }
 
-/**
- * 根据账户名，返回账户地址identity
- * 如账户名为：lunsa，则返回: de09463f7d68c1c1a10dff7bc668c357822bdbf7bdc05aa39d96bad0b002b33c
- * @param {*} account 
- */
-export const accountToIdentityString = (account) => {
-  const identity = CryptoJS.SHA256(account);
-  return identity.toString();
-}
-
-/**
- * 根据账户名，返回identity对象，该对象用于向链上发送地址
- * 如账户名为：lunsa，则返回：{data: "3glGP31owcGhDf97xmjDV4Ir2/e9wFqjnZa60LACszw=", empty: false, value: "3glGP31owcGhDf97xmjDV4Ir2/e9wFqjnZa60LACszw="}
- * @param {*} account 
- */
-export const accountToIdentityObject = (account) => {
-  const identity = CryptoJS.SHA256(account);
-  const data = identity.toString(CryptoJS.enc.Base64);
-  return {
-    data,
-    empty: false,
-    value: data
-  }
-}

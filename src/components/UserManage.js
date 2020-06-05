@@ -5,8 +5,8 @@
  */
 
 import React, { Component } from 'react';
-import {connect, callContract, call, getTransactionReceipt, sleep } from '../utils/antchain';
-import { uint8arrayToString, uint8arrayToUint, uint8arrayToBool, uint8arrayToArray, uint8arrayToIdentity, uint8arrayToCombinedData, accountToIdentityString, accountToIdentityObject } from '../utils/uint8array';
+import {connect, callContract, call, getTransactionReceipt, sleep, accountToIdentityObject } from '../utils/antchain';
+import { uint8arrayToString, uint8arrayToUint, uint8arrayToBool, uint8arrayToArray, uint8arrayToIdentity, uint8arrayToCombinedData } from '../utils/uint8array';
 import { Button, Input, Table, Popconfirm, Modal } from 'antd';
 import "./UserManage.css";
 require('dotenv').config();
@@ -63,10 +63,10 @@ class UserManage extends Component {
     this.setState({token});
     console.log('token', token);
 
-    // await this.getUser();
-    // await this.getIdentities();
-    // await this.getNames();
-    // await this.getAges();
+    await this.getUser();
+    await this.getIdentities();
+    await this.getNames();
+    await this.getAges();
     await this.getUsersArray(true);
     // await this.cleanArray();
     // await this.getUserByAccount("lunsa");
@@ -93,25 +93,25 @@ class UserManage extends Component {
 
   getNames = async () => {
     // 获取返回数组（字符串）
-    const data = await call(account, contractName, "getNames()", kmsKeyId, "[]", "[string]", this.state.token, 40000);
+    const data = await call(account, contractName, "getNames()", kmsKeyId, "[]", "[string]", this.state.token, 40000, true);
     console.log('getNames', uint8arrayToArray(data.data, 'string'));
   }
 
   getIdentities = async () => {
     // 获取返回数组（地址）
-    const data = await call(account, contractName, "getIdentities()", kmsKeyId, "[]", "[identity]", this.state.token, 40000);
+    const data = await call(account, contractName, "getIdentities()", kmsKeyId, "[]", "[identity]", this.state.token, 40000, true);
     console.log('getIdentities', uint8arrayToArray(data.data, 'identity'));
   }
 
   getAges = async () => {
     // 获取返回数组（uint）
-    const data = await call(account, contractName, "getAges()", kmsKeyId, "[]", "[uint]", this.state.token, 40000);
+    const data = await call(account, contractName, "getAges()", kmsKeyId, "[]", "[uint]", this.state.token, 40000, true);
     console.log('getAges', uint8arrayToArray(data.data, 'uint'));
   }
 
   getUser = async () => {
     const respTypes = "[identity,string,uint32]"; //返回参数列表，必须要与合约返回一样
-    const data = await call(account, contractName, "get()", kmsKeyId, "[]", respTypes, this.state.token, 40000);
+    const data = await call(account, contractName, "get()", kmsKeyId, "[]", respTypes, this.state.token, 40000, true);
     console.log('getUser', uint8arrayToCombinedData(data.data, respTypes));
   }
 
@@ -121,7 +121,7 @@ class UserManage extends Component {
     let data;
     if(newTx) {
       // 方法一：完整调用
-      data = await call(account, contractName, "getUsers()", kmsKeyId, "[]", respTypes, this.state.token, 80000);
+      data = await call(account, contractName, "getUsers()", kmsKeyId, "[]", respTypes, this.state.token, 800000, true);
       data = data.data;
       this.setState({
         previousQueryTx: data.hash
@@ -141,7 +141,7 @@ class UserManage extends Component {
       accountToIdentityObject(account)
     ];
     const respTypes = "[identity,string,uint32]";
-    const data = await call(account, contractName, 'getById(identity)', kmsKeyId, JSON.stringify(params), respTypes, this.state.token, 100000);
+    const data = await call(account, contractName, 'getById(identity)', kmsKeyId, JSON.stringify(params), respTypes, this.state.token, 100000, true);
     const dataArray = uint8arrayToCombinedData(data.data, respTypes);
     console.log(dataArray);
   }
