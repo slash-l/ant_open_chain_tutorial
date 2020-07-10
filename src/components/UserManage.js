@@ -63,10 +63,10 @@ class UserManage extends Component {
     this.setState({token});
     console.log('token', token);
 
-    await this.getUser();
-    await this.getIdentities();
-    await this.getNames();
-    await this.getAges();
+    // await this.getUser();
+    // await this.getIdentities();
+    // await this.getNames();
+    // await this.getAges();
     await this.getUsersArray(true);
     // await this.cleanArray();
     // await this.getUserByAccount("lunsa");
@@ -132,7 +132,7 @@ class UserManage extends Component {
       else {alert("建议调用合约时需要设置最新的Tx Hash")};
     }
     const dataArray = uint8arrayToCombinedData(data, respTypes);
-    // console.log(dataArray);
+    console.log('dataArray: ', dataArray);
     this.rendTable(dataArray);
   }
 
