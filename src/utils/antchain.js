@@ -218,7 +218,7 @@ export const call = async (account, contractName, methodSignature, kmsKeyId, inp
   } else {
     // 改变链上状态的交易
     const d = await callContract(account, contractName, methodSignature, kmsKeyId, inputParamListStr, outParamListStr, token, gas, isLocalCall);
-    console.log("hash", d.data);
+    console.log("hash", d);
     await sleep(2500);
     const data = await getTransactionReceipt(d.data, token);
     return {

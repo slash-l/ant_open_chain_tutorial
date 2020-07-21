@@ -69,8 +69,8 @@ class UserManage extends Component {
     // await this.getAges();
     await this.getUsersArray(true);
     // await this.cleanArray();
-    // await this.getUserByAccount("lunsa");
-    // console.log(accountToIdentityObject('lunsa'));
+    await this.getUserByAccount(account);
+    console.log(accountToIdentityObject(account));
   }
 
   setUser = async () => {
